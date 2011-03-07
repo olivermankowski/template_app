@@ -35,6 +35,18 @@ Spork.prefork do
     ### Part of a Spork hack. See http://bit.ly/arY19y
     # Emulate initializer set_clear_dependencies_hook in 
     # railties/lib/rails/application/bootstrap.rb
+	
+	def test_sign_in(user)
+		controller.sign_in(user) 
+	end
+
+	def integration_sign_in(user) 
+		visit signin_path 
+		fill_in :email,	:with => user.email 
+		fill_in :password, :with => user.password 
+		click_button
+	end
+
     ActiveSupport::Dependencies.clear
   end
 end
