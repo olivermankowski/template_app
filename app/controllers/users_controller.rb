@@ -1,7 +1,18 @@
 class UsersController < ApplicationController
 
-	before_filter :authenticate, :only => [:edit, :update]
+	before_filter :authenticate, :only => [:index, :edit, :update]
 	before_filter :correct_user, :only => [:edit, :update]
+
+	def index
+		@title = "All users" 
+		#@users = User.all
+		@users = User.paginate(:page => params[:page])
+	end
+	
+	def show 
+		@user = User.find(params[:id]) 
+		@title = @user.name
+	end
 
 	def show 
 		@user = User.find(params[:id])
